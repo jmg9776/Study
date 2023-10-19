@@ -1,10 +1,10 @@
-![center|200](https://i.imgur.com/ZL2f64o.png)
-### 1. AOP?
+### AOP
 관점 지향 프로그래밍 : 공통된 관심사를 중심으로 코드를 몰아 넣는다고 생각하면 좋아요.
+
+![](https://i.imgur.com/kH6HwuB.jpg)
 
 핵심 관심 사항
 BankingService, AccountService처럼 핵심이 되는 관심 사항
-
 공통된 관심사
 1. 간단한 메소드 성능 검사 -> 로깅
 2. 트랜잭션 처리 -> JDBC를 쓸때 try catch 지옥... 어지러웠죠?
