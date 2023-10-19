@@ -13,8 +13,7 @@ BankingService, AccountService처럼 핵심이 되는 관심 사항
 3. **SpringAOP** : 특별한 범위나 순서를 우리마음대로 정하고 싶을 때 사용해요. 복잡한 프로그래밍에서 관심사를 분리해서 코드의 중복을 줄이고, 유지 보수를 용이하게 만들기 위한 목적도 있어요. 주로 로깅, 트랜잭션 관리, 보안 등의 기능을 횡단 관심사로 처리하는 데에 활용돼요.
 	-> Filter와 Interceptor가 AOP의 개념을 사용하고 있기 때문에 비슷해 보일 수 밖에 없어요.
 
-AOP의 구현 방식에는 **JDK Dynamic Proxy**와 **CGLIB**가 주로 쓰여요.
-
+### AOP의 구현 방식에는 **JDK Dynamic Proxy**와 **CGLIB**가 주로 쓰여요.
 - **JDK Dynamic Proxy**
     - **장점**
         - 표준 Java API를 사용하기 때문에 별도의 의존성을 필요로하지 않아요.
