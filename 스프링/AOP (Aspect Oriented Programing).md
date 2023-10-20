@@ -13,8 +13,10 @@ BankingService, AccountService처럼 핵심이 되는 관심 사항
 -> 그래서 한번에 처리하는 방법이 필요하게 되었어요.
 ### 2. Spring AOP
 1. **Filter** : 웹 애플리케이션에서 HTTP 요청이나 응답을 조절할 때 쓰여요. 주로 WAS에서 HTTP 요청을 서블릿이나 컨트롤러로 보내기 전이나 후에 작업을 하기 위해 사용해요.
-2. **Interceptor** : Spring에서 제공하는 기능으로, 요청을 처리하기 전이나 후, 또는 응답을 보내기 전에 특별한 작업을 하기 위해 쓰여요. 로깅이나 권한 확인, 트랜잭션 처리 같은 일에 주로 사용돼요.
-3. **SpringAOP** : 특별한 범위나 순서를 우리마음대로 정하고 싶을 때 사용해요. 복잡한 프로그래밍에서 관심사를 분리해서 코드의 중복을 줄이고, 유지 보수를 용이하게 만들기 위한 목적도 있어요. 주로 로깅, 트랜잭션 관리, 보안 등의 기능을 횡단 관심사로 처리하는 데에 활용돼요.
+
+3. **Interceptor** : Spring에서 제공하는 기능으로, 요청을 처리하기 전이나 후, 또는 응답을 보내기 전에 특별한 작업을 하기 위해 쓰여요. 로깅이나 권한 확인, 트랜잭션 처리 같은 일에 주로 사용돼요.
+
+5. **SpringAOP** : 특별한 범위나 순서를 우리마음대로 정하고 싶을 때 사용해요. 복잡한 프로그래밍에서 관심사를 분리해서 코드의 중복을 줄이고, 유지 보수를 용이하게 만들기 위한 목적도 있어요. 주로 로깅, 트랜잭션 관리, 보안 등의 기능을 횡단 관심사로 처리하는 데에 활용돼요.
 	-> Filter와 Interceptor가 AOP의 개념을 사용하고 있기 때문에 비슷해 보일 수 밖에 없어요.
 
 AOP의 구현 방식에는 **JDK Dynamic Proxy**와 **CGLIB**가 주로 쓰여요.
@@ -41,6 +43,26 @@ AOP의 구현 방식에는 **JDK Dynamic Proxy**와 **CGLIB**가 주로 쓰여�
 
 하지만 이런 성능 차이는 어떤 상황이냐에 따라 달라져요. 따라서 어떤 것이 더 나은지 알아보려면 직접 테스트를 해봐야 해요.
 
-Target : 핵심 기능을 담고 있는 모듈로 부가기능을 부여할 대상
-Advice : 어느 시점에 공통 관심 기능을 적용할지 정의한 것 (지정 시점을 생각하면 편함)
-JoinPoint : Aspect가 적용 될 수 있는 지점!
+### AOP 용어
+1. **Target**: 실제 비즈니스 로직을 담당하는 부분이에요. AOP에서는 이 Target에 부가기능을 추가합니다.
+2. **Advice**: 공통 기능을 어떻게, 어느 시점에 적용할지 정의한 모듈이에요. Before, After, Around, AfterReturning, AfterThrowing 등의 다양한 종류의 Advice가 있어요.
+3. **JoinPoint**: 프로그램 실행 중에 Aspect의 코드가 적용될 수 있는 특정한 지점을 의미해요. 예를 들면, 메소드 호출이나 예외 발생 시점이 JoinPoint가 될 수 있죠.
+4. **PointCut**: 실제로 Advice가 적용될 JoinPoint를 세밀하게 지정한 표현식이에요.
+5. **Weaving**: Pointcut에 지정된 위치에 실제로 Advice를 적용하는 과정을 의미해요. 컴파일 시점, 클래스 로드 시점, 런타임 시점 등 다양한 시점에서 Weaving이 일어날 수 있어요.
+6. **Aspect**: 공통 기능 모듈 자체를 의미하는데, Advice와 Pointcut을 합친 것이죠. 즉, 어떤 공통 기능을 어디에 적용할 것인지에 대한 정보를 담고 있어요.
+### Pointcut 표현식
+1. `execution(public * *(..))` - 모든 public 메소드 실행에 적용
+2. `execution(* set*(..))` - 이름이 `set`으로 시작하는 모든 메소드 실행에 적용
+3. `execution(* com.test.service.AccountService.*(..))` - `AccountService` 클래스의 모든 메소드 실행에 적용
+4. `execution(* com.test.service.*.*(..))` - `service` 패키지의 모든 메소드 실행에 적용
+5. `execution(* com.test.service..*.*(..))` - `service` 패키지와 그 하위 패키지의 모든 메소드 실행에 적용
+6. `within(com.test.service.*)` - `service` 패키지 내의 모든 연결점(JoinPoint)에 적용
+7. `within(com.test.service..*)` - `service` 패키지 및 그 하위 패키지의 모든 연결점에 적용
+8. `this(com.test.service.AccountService)` - `AccountService` 인터페이스를 구현하는 대상 객체의 연결점에 적용
+9. `target(com.test.service.AccountService)` - `AccountService` 인터페이스를 구현하는 대상 객체의 연결점에 적용
+10. `args(java.io.Serializable)` - 인수로 `Serializable` 인터페이스를 구현하는 객체를 받는 연결점에 적용
+
+### Pointcut 조합
+두 개 이상의 Pointcut 표현식을 조합할 수 있어요. 주로 `&&` (and), `||` (or), `!` (not) 연산자를 사용해서 조합해요.
+예시:
+- `execution(* com.example.service.*.*(..)) && args(String)`: `com.example.service` 패키지의 모든 클래스의 메소드 중, String 타입의 인자를 받는 메소드에만 조언을 적용하겠다는 의미에요.
