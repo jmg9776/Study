@@ -38,9 +38,9 @@
     - JSP, Thymeleaf, FreeMarker 등 다양한 뷰 기술을 사용할 수 있어요. `View`는 `Model`에 담긴 데이터를 사용하여 클라이언트에게 보여질 응답을 생성하게 돼요.
 
 알아두면 좋은 내용!
-``` 
-Spring Web MVC에서의 `DispatcherServlet`과 같은 주요 컴포넌트들은 기본적으로 싱글턴(Singleton) 스코프로 Spring 컨테이너에서 관리되고 있어요. 이는 동시에 많은 사용자의 요청을 효율적으로 처리하기 위해서입니다!
-```
+
+Spring Web MVC에서의 `DispatcherServlet`과 같은 주요 컴포넌트들은 기본적으로 싱글턴(Singleton) 스코프로 Spring 컨테이너에서 관리되고 있어요. 
+이는 동시에 많은 사용자의 요청을 효율적으로 처리하기 위해서입니다!
 
 ### @Controller 의 반환 값 
 1. **String**:
