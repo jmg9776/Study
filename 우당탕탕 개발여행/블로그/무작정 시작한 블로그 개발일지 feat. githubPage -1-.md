@@ -1,0 +1,58 @@
+2023-10-20
+남들과는 다르게 라면서 힙스터 정신으로? 블로그를 만들고 싶어져서 올해 1월에 포트폴리오 웹 페이지를 만들었었는데... 이게 참 지금 다시 보면 심각할 수준이 였죠.. ㅠㅠ
+
+어느 정도였느냐!
+
+리엑트가 유행이라길래 무지성 리엑트.. 그리고 막무가내 코딩, 디자인만 적용되었고 반응형 따윈 저세상으로 보내버렸던! 그런 프로젝트 였어요..
+
+![](https://i.imgur.com/rBu2emh.png)
+-  와!! 리엑트!! 어림도 없었다.
+
+반응형 디자인 구현이 너무 어렵다 생각해서  페이지 사이즈를 구해서 스케일을 걸어버린 과거의 나...
+```
+const size = useWindowSize();  
+let sUsrAg = navigator.userAgent;  
+let scale = (window.innerWidth/1300*100);  
+if ((window.innerWidth/1300*100) > 100) {  
+    scale = '100'  
+}  
+if (sUsrAg.indexOf("Chrome") > -1) {  
+} else {  
+}  
+let videoHeight = (1080*scale/100) + "px";  
+const [detail, setDetail] = useState(false);  
+return (  
+    <div>  
+        <div style={{overflow:"hidden", width:window.innerWidth, height:videoHeight, position:"absolute", left:"50%",transform: "translate(-50%, 0%)"}}>  
+            <div style={{background:"linear-gradient(to bottom, rgba(25,25,25,40%),rgba(25,25,25,100%))", position:"absolute", left:"0", zIndex:1000, width:window.innerWidth, height:videoHeight}}></div>  
+            <video loop muted autoPlay>  
+                <source src={video} type="video/mp4"/>  
+            </video>        </div>        <div style={{scale:scale+"%"}}>  
+            <Content>  
+            </Content>        </div>    </div>);
+```
+
+하지만! SSAFY에서 Html, CSS에 대해서 공부를 하게 되었는데. 
+flex를 공부해보니 어렵게 생각 하지 말고 해볼걸 이라는 생각이 바로 들었습니다. -> 왜 서류 광탈 했는지 알 것 같은 ㅋㅋ
+
+그래서! 완전히 갈아 엎어 보자! 라고 생각이 들어서 무턱대고 퍼블리싱 부터 해보자 생각을 했구, 실행에 옮겼죠.
+
+너무 재밌어서 2주 정도 밤을 세워가며 만든 결과!
+
+![](https://i.imgur.com/gqhn0sf.png)
+
+![](https://i.imgur.com/kfrmHH6.png)
+
+요로코롬 예쁘장한 페이지가 완성 되었죠. (https://jmg9776.github.io)
+
+근데 목표는 블로그였기 때문에 그저 퍼블리싱으로는 안되구... 글을 관리하는 방법이 필요한데, 처음에는 AWS를 공부할 겸 해서 springboot로 백엔드를 붙여보려고 했어요.
+
+그런데 이미지 업로드 같은 문제랑 서버 운용 비용을 생각해보니 학생인 제가 감당하기엔 너무나도 큰 금액 ㅠㅠ
+
+좌절하던 중! github page를 이용해서 블로그를 운영하시는 분들이 있더라구요.
+그래서 저도 깃헙 페이지를 써서 블로그를 만들어 보려고 합니다.
+
+리엑트를 쓰긴 할 것이지만 최대한 외부 라이브러리는 사용하지 않으려고 해요.
+아무튼 계획이 많이 틀어졌지만 계속해서 정진해 나가보려고 합니다.
+
+![](https://i.imgur.com/dUQalzH.png)
