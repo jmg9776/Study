@@ -62,6 +62,9 @@ AOP의 구현 방식에는 **JDK Dynamic Proxy**와 **CGLIB**가 주로 쓰여�
 8. `this(com.test.service.AccountService)` - `AccountService` 인터페이스를 구현하는 대상 객체의 연결점에 적용
 9. `target(com.test.service.AccountService)` - `AccountService` 인터페이스를 구현하는 대상 객체의 연결점에 적용
 10. `args(java.io.Serializable)` - 인수로 `Serializable` 인터페이스를 구현하는 객체를 받는 연결점에 적용
+```
+@Before("execution(* com.example.service.*.*(java.lang.String, int))")
+```
 
 ### Pointcut 조합
 두 개 이상의 Pointcut 표현식을 조합할 수 있어요. 주로 `&&` (and), `||` (or), `!` (not) 연산자를 사용해서 조합해요.
